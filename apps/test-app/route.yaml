@@ -1,0 +1,13 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: nginx
+  namespace: test-app
+spec:
+  to:
+    kind: Service
+    name: nginx
+  port:
+    targetPort: 8080
+  # 通常のRoute - OIDC設定不要
+  # ALBで認証済みのリクエストのみ到達
