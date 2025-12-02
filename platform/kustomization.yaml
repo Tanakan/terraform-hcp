@@ -12,3 +12,9 @@ resources:
 - alb-ingress/namespace.yaml
 - alb-ingress/secret.yaml
 - alb-ingress/ingress.yaml
+
+# External Secrets Operator
+- eso/namespace.yaml
+- eso/subscription.yaml
+- eso/serviceaccount.yaml
+- eso/cluster-store.yaml
