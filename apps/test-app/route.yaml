@@ -9,5 +9,6 @@ spec:
     name: nginx
   port:
     targetPort: 8080
-  # 通常のRoute - OIDC設定不要
-  # ALBで認証済みのリクエストのみ到達
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
