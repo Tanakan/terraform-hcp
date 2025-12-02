@@ -22,18 +22,48 @@ rosa-hcp-terraform/
 
 ### infrastructure/
 
-**責務**: AWS インフラストラクチャの管理 (Terraform)
+**責務**: AWS インフラストラクチャの管理 (Terraform + Terragrunt)
 
 - VPC, Subnets, NAT Gateway
 - ROSA HCP クラスター
 - Google Workspace IdP 設定
 - ALB Controller 用 IAM ロール
 
+#### 前提条件
+
+- [Terraform](https://developer.hashicorp.com/terraform/downloads)
+- [Terragrunt](https://terragrunt.gruntwork.io/docs/getting-started/install/)
+- [ROSA CLI](https://docs.openshift.com/rosa/rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-installing-rosa.html)
+- AWS CLI (認証設定済み)
+
+```bash
+# macOS
+brew install terraform terragrunt
+brew install rosa-cli
+```
+
+#### 実行手順
+
 ```bash
 cd infrastructure
-terraform init
-terraform plan
-terraform apply
+
+# 1. ROSA にログイン
+rosa login --use-auth-code
+
+# 2. RHCS トークンを環境変数に設定
+export RHCS_TOKEN=$(rosa token)
+
+# 3. Terragrunt で実行 (S3 bucket 名は AWS アカウント ID から自動取得)
+terragrunt init
+terragrunt plan
+terragrunt apply
+```
+
+#### 削除
+
+```bash
+export RHCS_TOKEN=$(rosa token)
+terragrunt destroy
 ```
 
 ### platform/

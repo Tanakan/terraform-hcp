@@ -1,58 +1,10 @@
-#------------------------------------------------------------------------------
-# General
-#------------------------------------------------------------------------------
 cluster_name = "my-rosa-hcp"
-aws_region   = "ap-northeast-1"
 
-# RHCS Token は環境変数で設定:
-# export RHCS_TOKEN=$(rosa token)
-# または
-# export RHCS_TOKEN="https://console.redhat.com/openshift/token から取得"
-
-default_tags = {
-  ManagedBy   = "terraform"
-  Project     = "rosa-hcp"
-  Environment = "production"
-}
-
-#------------------------------------------------------------------------------
-# Network
-#------------------------------------------------------------------------------
-vpc_cidr           = "10.0.0.0/16"
-availability_zones = ["ap-northeast-1a", "ap-northeast-1c", "ap-northeast-1d"]
-
-private_subnet_cidrs = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-public_subnet_cidrs  = ["10.0.101.0/24", "10.0.102.0/24", "10.0.103.0/24"]
-
-#------------------------------------------------------------------------------
-# ROSA HCP Cluster
-#------------------------------------------------------------------------------
-openshift_version    = "4.14.24"
+# Cluster sizing (Single-AZ, 2ノード構成)
 replicas             = 2
-compute_machine_type = "m5.xlarge"
-private_cluster      = false
+availability_zones   = ["ap-northeast-1a"]
+private_subnet_cidrs = ["10.0.1.0/24"]
+public_subnet_cidrs  = ["10.0.101.0/24"]
 
-#------------------------------------------------------------------------------
-# Admin User (初期セットアップ用、Google OIDC設定後は無効化推奨)
-#------------------------------------------------------------------------------
-create_admin_user = true
-admin_username    = "cluster-admin"
-admin_password    = "YourSecurePassword123!"
-
-#------------------------------------------------------------------------------
-# Google Workspace OIDC
-#
-# 設定手順:
-# 1. Google Cloud Console (https://console.cloud.google.com) にアクセス
-# 2. APIs & Services > Credentials へ移動
-# 3. OAuth 2.0 Client IDs を作成
-#    - Application type: Web application
-#    - Name: ROSA OpenShift
-#    - Authorized redirect URIs: terraform apply 後に出力される google_oauth_callback_url を設定
-# 4. Client ID と Client Secret を以下に設定
-#------------------------------------------------------------------------------
-google_idp_enabled   = true
-google_idp_name      = "Google"
-google_client_id     = "your-client-id.apps.googleusercontent.com"
-google_client_secret = "your-client-secret"
-google_hosted_domain = "your-company.com"  # Google Workspace のドメイン
+# Google Workspace OIDC (無効)
+google_idp_enabled = false

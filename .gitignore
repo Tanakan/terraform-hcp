@@ -1,9 +1,11 @@
-# Terraform
+# Terraform / Terragrunt
 **/.terraform/
+**/.terragrunt-cache/
 *.tfstate
 *.tfstate.*
 *.tfvars
 !*.tfvars.example
+backend_generated.tf
 crash.log
 override.tf
 override.tf.json

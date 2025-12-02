@@ -1,15 +1,4 @@
-#------------------------------------------------------------------------------
-# Terraform Backend (S3)
-#------------------------------------------------------------------------------
-terraform {
-  backend "s3" {
-    bucket         = "iac-terraform-tfstate-195275636486"
-    key            = "rosa-hcp/terraform.tfstate"
-    region         = "ap-northeast-1"
-    encrypt        = true
-    dynamodb_table = "iac-terraform-tfstate-lock"
-  }
-}
+# Backend は terragrunt.hcl で設定 (get_aws_account_id() で自動取得)
 
 #------------------------------------------------------------------------------
 # Providers

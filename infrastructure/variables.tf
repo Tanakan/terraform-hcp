@@ -54,7 +54,7 @@ variable "public_subnet_cidrs" {
 variable "openshift_version" {
   description = "OpenShift バージョン"
   type        = string
-  default     = "4.16.52"
+  default     = "4.20.4"
 }
 
 variable "replicas" {
