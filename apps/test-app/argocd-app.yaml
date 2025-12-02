@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/YOUR_USERNAME/rosa-hcp-terraform  # TODO: 実際のリポジトリURLに変更
+    repoURL: https://github.com/Tanakan/terraform-hcp
     targetRevision: main
     path: apps/test-app
   destination:
