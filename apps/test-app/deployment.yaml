@@ -24,9 +24,15 @@ spec:
         - --upstream=http://localhost:8080
         - --tls-cert=/etc/tls/private/tls.crt
         - --tls-key=/etc/tls/private/tls.key
-        - --cookie-secret=01234567890123456789012345678901
+        - --cookie-secret=$(OAUTH2_PROXY_COOKIE_SECRET)
         - --cookie-secure=true
         - --openshift-sar={"namespace":"test-app","resource":"services","verb":"get"}
+        env:
+        - name: OAUTH2_PROXY_COOKIE_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: oauth-proxy-cookie
+              key: cookie-secret
         ports:
         - containerPort: 8443
           name: proxy
