@@ -8,11 +8,6 @@ resources:
 - aws-load-balancer-operator/subscription.yaml
 - aws-load-balancer-operator/controller.yaml
 
-# ALB Ingress with OIDC
-- alb-ingress/namespace.yaml
-- alb-ingress/secret.yaml
-- alb-ingress/ingress.yaml
-
 # External Secrets Operator
 - eso/namespace.yaml
 - eso/subscription.yaml
