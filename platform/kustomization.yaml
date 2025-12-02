@@ -16,5 +16,6 @@ resources:
 # External Secrets Operator
 - eso/namespace.yaml
 - eso/subscription.yaml
+- eso/operatorconfig.yaml
 - eso/serviceaccount.yaml
 - eso/cluster-store.yaml
