@@ -5,4 +5,7 @@ resources:
 - namespace.yaml
 - deployment.yaml
 - service.yaml
+- oauth2-proxy-secret.yaml
+- oauth2-proxy-deployment.yaml
+- oauth2-proxy-service.yaml
 - route.yaml

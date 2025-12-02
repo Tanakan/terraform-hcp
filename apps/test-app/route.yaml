@@ -6,9 +6,9 @@ metadata:
 spec:
   to:
     kind: Service
-    name: nginx
+    name: oauth2-proxy
   port:
-    targetPort: 8080
+    targetPort: 4180
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
