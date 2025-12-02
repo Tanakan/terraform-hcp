@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: oauth-proxy-cookie
+  namespace: test-app
+type: Opaque
+stringData:
+  cookie-secret: SJ8vV3/G3QBQ5r6e5H4EeewxbyBy7RIt
