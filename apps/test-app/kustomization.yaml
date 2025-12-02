@@ -5,6 +5,7 @@ resources:
 - namespace.yaml
 - oauth-proxy-sa.yaml
 - eso-oauth-proxy.yaml
+- rolebinding.yaml
 - deployment.yaml
 - service.yaml
 - route.yaml
