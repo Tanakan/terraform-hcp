@@ -1,8 +1,0 @@
-apiVersion: operators.coreos.com/v1
-kind: OperatorGroup
-metadata:
-  name: aws-load-balancer-operator
-  namespace: aws-load-balancer-operator
-spec:
-  targetNamespaces:
-  - aws-load-balancer-operator
