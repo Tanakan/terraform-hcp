@@ -3,8 +3,7 @@ kind: Kustomization
 
 resources:
 - namespace.yaml
+- oauth-proxy-sa.yaml
 - deployment.yaml
 - service.yaml
-- oauth2-proxy-deployment.yaml
-- oauth2-proxy-service.yaml
 - route.yaml

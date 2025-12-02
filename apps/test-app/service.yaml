@@ -3,9 +3,12 @@ kind: Service
 metadata:
   name: nginx
   namespace: test-app
+  annotations:
+    service.beta.openshift.io/serving-cert-secret-name: nginx-proxy-tls
 spec:
   selector:
     app: nginx
   ports:
-  - port: 80
-    targetPort: 8080
+  - name: proxy
+    port: 8443
+    targetPort: 8443

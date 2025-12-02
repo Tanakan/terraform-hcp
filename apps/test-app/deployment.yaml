@@ -13,7 +13,33 @@ spec:
       labels:
         app: nginx
     spec:
+      serviceAccountName: nginx-proxy
       containers:
+      - name: oauth-proxy
+        image: quay.io/openshift/origin-oauth-proxy:4.14
+        args:
+        - --https-address=:8443
+        - --provider=openshift
+        - --openshift-service-account=nginx-proxy
+        - --upstream=http://localhost:8080
+        - --tls-cert=/etc/tls/private/tls.crt
+        - --tls-key=/etc/tls/private/tls.key
+        - --cookie-secret=01234567890123456789012345678901
+        - --cookie-secure=true
+        - --openshift-sar={"namespace":"test-app","resource":"services","verb":"get"}
+        ports:
+        - containerPort: 8443
+          name: proxy
+        volumeMounts:
+        - name: proxy-tls
+          mountPath: /etc/tls/private
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
       - name: nginx
         image: nginxinc/nginx-unprivileged:alpine
         ports:
@@ -25,3 +51,7 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "200m"
+      volumes:
+      - name: proxy-tls
+        secret:
+          secretName: nginx-proxy-tls
