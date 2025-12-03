@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  namespace: test-app
+  namespace: test-app-1
 spec:
   replicas: 1
   selector:
@@ -26,4 +26,11 @@ spec:
           limits:
             memory: "128Mi"
             cpu: "200m"
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: html
+        configMap:
+          name: nginx-html
       # oauth-proxy と proxy-tls volume は Kyverno が自動注入

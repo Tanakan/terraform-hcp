@@ -1,0 +1,66 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: inject-oauth-proxy
+  annotations:
+    policies.kyverno.io/title: Inject OAuth Proxy Sidecar
+    policies.kyverno.io/description: >-
+      Injects oauth-proxy sidecar container into all Pods in user namespaces.
+      This enforces Google Workspace OIDC authentication for all applications.
+spec:
+  rules:
+  - name: inject-oauth-proxy-sidecar
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    exclude:
+      any:
+      # システム namespace を除外
+      - resources:
+          namespaces:
+          - kube-system
+          - kube-public
+          - kube-node-lease
+          - openshift-*
+          - kyverno
+          - external-secrets
+          - openshift-gitops
+      # oauth-proxy: disabled ラベルで除外可能
+      - resources:
+          selector:
+            matchLabels:
+              oauth-proxy: "disabled"
+    mutate:
+      patchStrategicMerge:
+        spec:
+          containers:
+          - name: oauth-proxy
+            image: quay.io/openshift/origin-oauth-proxy:4.14
+            args:
+            - --https-address=:8443
+            - --provider=openshift
+            - --openshift-service-account={{request.object.spec.serviceAccountName}}
+            - --upstream=http://localhost:8080
+            - --tls-cert=/etc/tls/private/tls.crt
+            - --tls-key=/etc/tls/private/tls.key
+            - --cookie-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
+            - --openshift-sar={"namespace":"{{request.object.metadata.namespace}}","resource":"services","verb":"get"}
+            ports:
+            - containerPort: 8443
+              name: proxy
+            volumeMounts:
+            - name: proxy-tls
+              mountPath: /etc/tls/private
+            resources:
+              requests:
+                memory: "64Mi"
+                cpu: "100m"
+              limits:
+                memory: "128Mi"
+                cpu: "200m"
+          volumes:
+          - name: proxy-tls
+            secret:
+              secretName: "{{request.object.metadata.labels.app}}-tls"

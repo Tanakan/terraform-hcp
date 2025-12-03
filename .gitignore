@@ -17,6 +17,7 @@ override.tf.json
 *.key
 *secret*
 !*secret*.yaml.example
+!platform/external-secrets-operator/
 
 # IDE
 .idea/

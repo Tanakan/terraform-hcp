@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-html
+  namespace: test-app-1
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>test-app-1</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f0f0f0;
+            }
+            .container {
+                text-align: center;
+                padding: 40px;
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+            h1 { color: #333; }
+            p { color: #666; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>test-app-1</h1>
+            <p>You are accessing test-app-1</p>
+        </div>
+    </body>
+    </html>
